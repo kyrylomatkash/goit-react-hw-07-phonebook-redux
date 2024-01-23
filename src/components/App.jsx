@@ -1,16 +1,24 @@
-export const App = () => {
+// Імпорт компонентів і стилів
+import React from 'react';
+import { AppContainer } from './appstyles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ContactList from './phonebook-component/contact-list/ContactList';
+import ContactForm from './phonebook-component/contact-form/ContactForm';
+import Filter from './phonebook-component/filter-contact/Filter';
+
+// Головна функція застосунку
+const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <AppContainer>
+        <ContactForm />
+        <Filter />
+        <ContactList />
+      </AppContainer>
+      <ToastContainer />
+    </>
   );
 };
+
+export default App;
