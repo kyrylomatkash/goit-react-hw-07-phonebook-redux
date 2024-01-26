@@ -22,10 +22,10 @@ const EditContactModal = ({ contact, isOpen, onClose, onSave }) => {
 
     onSave({ id: contact.id, name, number });
     onClose();
+    toast.success('Contact edited successfully.');
   };
 
   const handleClose = () => {
-    toast.success('Contact edited successfully.');
     onClose();
   };
 

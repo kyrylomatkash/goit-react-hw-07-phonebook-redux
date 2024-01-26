@@ -3,13 +3,19 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import EditContactModal from './EditContactModal';
 import { useDispatch } from 'react-redux';
-import { editContactAction } from '../../../redux/contactSlice';
+import { editContact } from '../../../redux/contactsAsyncThunk';
 // Основна функція компоненту
 const EditContact = ({ contact }) => {
   const dispatch = useDispatch();
   // Редагування контакту
   const handleEdit = () => {
-    dispatch(editContactAction(contact));
+    dispatch(
+      editContact({
+        contactId: contact.id,
+        name: contact.name,
+        number: contact.number,
+      })
+    );
   };
 
   return (

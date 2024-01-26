@@ -1,12 +1,13 @@
 // Імпорт бібліотек,компонентів,логіки Redux
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  deleteContactAction,
-  editContactAction,
-} from '../../../redux/contactSlice';
+  deleteContact,
+  editContact as editContactAction,
+  fetchContacts,
+} from '../../../redux/contactsAsyncThunk';
 import EditContactModal from '../edit-contact/EditContactModal';
-import DeleteAllContactsModal from '../delete-contact/DeleteAllContactsModal';
+import ClearAllContactsModal from '../delete-contact/ClearAllContactsModal';
 import ConfirmationDialog from '../delete-contact/DeleteConfirmationModal';
 import ContactExistsModal from './ContactAlreadyExist';
 import { Typography } from '@mui/material';
@@ -19,17 +20,19 @@ import {
   EditButton,
   DeleteButton,
   NoContactsMessage,
-  DeleteAllButton,
+  ClearAllButton,
+  Loader,
 } from './contactliststyles';
 
 // Основна функція компоненту
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter.filter);
+  const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
   // Стейти модальних вікон
   const [editContact, setEditContact] = useState(null);
-  const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
+  const [ClearAllModalOpen, setClearAllModalOpen] = useState(false);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
   const [contactExistsModalOpen, setContactExistsModalOpen] = useState(false);
@@ -37,6 +40,9 @@ const ContactList = () => {
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   // Редагування контакту
   const handleEdit = contact => {
     setEditContact(contact);
@@ -49,7 +55,7 @@ const ContactList = () => {
   // Підтвердження видалення
   const confirmDelete = () => {
     if (contactToDelete) {
-      dispatch(deleteContactAction(contactToDelete.id));
+      dispatch(deleteContact(contactToDelete.id));
       setDeleteConfirmationOpen(false);
     }
   };
@@ -68,7 +74,7 @@ const ContactList = () => {
     if (isContactExists) {
       setContactExistsModalOpen(true);
     } else {
-      dispatch(editContactAction({ id, name, number }));
+      dispatch(editContactAction({ contactId: id, name, number }));
       setEditContact(null);
     }
   };
@@ -77,17 +83,19 @@ const ContactList = () => {
     setEditContact(null);
   };
   // Відкриття модального вікна видалення усіх контактів
-  const handleOpenDeleteAllModal = () => {
-    setDeleteAllModalOpen(true);
+  const handleOpenClearAllModal = () => {
+    setClearAllModalOpen(true);
   };
   // Закриття модального вікна видалення усіх контактів
   const handleCloseDeleteAllModal = () => {
-    setDeleteAllModalOpen(false);
+    setClearAllModalOpen(false);
   };
 
   return (
     <ContactListContainer>
-      {filteredContacts.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : filteredContacts.length > 0 ? (
         <>
           <StyledList>
             {filteredContacts.map(contact => (
@@ -108,13 +116,13 @@ const ContactList = () => {
               </StyledListItem>
             ))}
           </StyledList>
-          <DeleteAllButton
+          <ClearAllButton
             variant="outlined"
             color="error"
-            onClick={handleOpenDeleteAllModal}
+            onClick={handleOpenClearAllModal}
           >
             Clear history
-          </DeleteAllButton>
+          </ClearAllButton>
         </>
       ) : (
         <NoContactsMessage>There are no contacts.</NoContactsMessage>
@@ -127,8 +135,8 @@ const ContactList = () => {
           onSave={handleSaveEdit}
         />
       )}
-      <DeleteAllContactsModal
-        isOpen={deleteAllModalOpen}
+      <ClearAllContactsModal
+        isOpen={ClearAllModalOpen}
         onClose={handleCloseDeleteAllModal}
       />
       {deleteConfirmationOpen && (

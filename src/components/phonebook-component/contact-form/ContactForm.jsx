@@ -1,9 +1,10 @@
 // Імпорт компонентів,бібліотек і Redux логіки
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContactAction } from '../../../redux/contactSlice';
+import { addContact } from '../../../redux/contactsAsyncThunk';
 import ContactExistsModal from '../contact-list/ContactAlreadyExist';
 import { toast } from 'react-toastify';
+import { validateName, validateNumber } from './validation';
 // Імпорт стилів
 import {
   AppContainer,
@@ -16,15 +17,25 @@ import {
 // Основна функція компоненту
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(state => state.contacts.items);
+  const isLoading = useSelector(state => state.contacts.isLoading);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [contactExistsModalOpen, setContactExistsModalOpen] = useState(false);
   // Додавання контакту
   const handleAddContact = () => {
-    if (!name.trim() || !number.trim()) {
-      toast.error('Please fill in all fields.');
+    // Валідація
+    const nameNotValid = validateName(name);
+    const numberNotValid = validateNumber(number);
+
+    if (nameNotValid) {
+      toast.error(nameNotValid);
+      return;
+    }
+
+    if (numberNotValid) {
+      toast.error(numberNotValid);
       return;
     }
     // Відслідковування вже існуючого контакту у списку
@@ -35,7 +46,7 @@ const ContactForm = () => {
     if (isContactExists) {
       setContactExistsModalOpen(true);
     } else {
-      dispatch(addContactAction({ name, number }));
+      dispatch(addContact({ name, number }));
       toast.success('Contact added successfully.');
       setName('');
       setNumber('');
@@ -58,8 +69,12 @@ const ContactForm = () => {
           value={number}
           onChange={e => setNumber(e.target.value)}
         />
-        <AddButton variant="outlined" onClick={handleAddContact}>
-          Add Contact
+        <AddButton
+          variant="outlined"
+          onClick={handleAddContact}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Fetching Data...' : 'Add Contact'}
         </AddButton>
       </StyledForm>
       <ContactExistsModal

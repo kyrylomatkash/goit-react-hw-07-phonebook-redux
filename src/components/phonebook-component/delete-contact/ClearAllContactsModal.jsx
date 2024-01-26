@@ -10,15 +10,15 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material';
-import { deleteAllContactsAction } from '../../../redux/contactSlice';
+import { clearAllContacts } from '../../../redux/contactsAsyncThunk';
 // Основна функція компоненту
-const DeleteAllContactsModal = ({ isOpen, onClose }) => {
+const ClearAllContactsModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   // Видалення усіх контактів
   const handleDeleteAll = () => {
-    dispatch(deleteAllContactsAction());
+    dispatch(clearAllContacts());
     onClose();
-    toast.success('All contacts deleted successfully');
+    toast.success('All contacts deleted successfully.');
   };
 
   return (
@@ -28,6 +28,7 @@ const DeleteAllContactsModal = ({ isOpen, onClose }) => {
         <Typography>
           Are you sure you want to clear the phonebook history? This action
           can't be undone.
+          <strong>(Contacts will be deleted from the database)</strong>
         </Typography>
       </DialogContent>
       <DialogActions>
@@ -42,4 +43,4 @@ const DeleteAllContactsModal = ({ isOpen, onClose }) => {
   );
 };
 // Експорт
-export default DeleteAllContactsModal;
+export default ClearAllContactsModal;

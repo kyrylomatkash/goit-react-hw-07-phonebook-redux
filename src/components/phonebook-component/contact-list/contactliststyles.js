@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { List, Button, Typography } from '@mui/material';
+import { List, Button, Typography, CircularProgress } from '@mui/material';
 
 export const ContactListContainer = styled.div`
   margin-top: 20px;
@@ -37,14 +37,20 @@ export const DeleteButton = styled(Button)`
   background-color: #ff6666;
 `;
 export const NoContactsMessage = styled(Typography)`
-  margin-top: 20px;
   font-size: 18px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #ffffff;
 `;
-export const DeleteAllButton = styled(Button)`
+export const ClearAllButton = styled(Button)`
   && {
     margin-top: 15px;
+  }
+`;
+
+export const Loader = styled(CircularProgress)`
+  && {
+    color: #2196f3;
+    margin-top: 20px;
   }
 `;
