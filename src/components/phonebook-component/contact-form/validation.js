@@ -18,7 +18,7 @@ export const validateNumber = number => {
   }
 
   if (!/^[\d()-]{1,15}$/.test(number)) {
-    return 'Check the name you entered.The name can contain only letters and special characters: () and -';
+    return 'Check the number you entered. The number can contain only digits and special characters: () and -';
   }
 
   return null;
