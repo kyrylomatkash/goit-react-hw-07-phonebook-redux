@@ -25,6 +25,10 @@ const ContactForm = () => {
   const [contactExistsModalOpen, setContactExistsModalOpen] = useState(false);
   // Додавання контакту
   const handleAddContact = () => {
+    if (contacts.length >= 100) {
+      toast.error('Contacts limit reached. Cannot add more contacts.');
+      return;
+    }
     // Валідація
     const nameNotValid = validateName(name);
     const numberNotValid = validateNumber(number);
