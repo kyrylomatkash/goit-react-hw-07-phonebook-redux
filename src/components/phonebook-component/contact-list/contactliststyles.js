@@ -51,6 +51,6 @@ export const ClearAllButton = styled(Button)`
 export const Loader = styled(CircularProgress)`
   && {
     color: #2196f3;
-    margin-top: 20px;
+    margin-bottom: 30px;
   }
 `;
