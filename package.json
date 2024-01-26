@@ -2,13 +2,10 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://goitacademy.github.io/goit-react-hw-07-phonebook-redux/",
+  "homepage": "https://kyrylomatkash/goit-react-hw-07-phonebook-redux/",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/base": "^5.0.0-beta.33",
-    "@mui/joy": "^5.0.0-beta.24",
-    "@mui/lab": "^5.0.0-alpha.162",
     "@mui/material": "^5.15.6",
     "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/jest-dom": "^5.16.3",
@@ -21,7 +18,6 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.4",
     "redux-persist": "^6.0.0",
-    "respinner": "^4.0.1",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.3"
   },
