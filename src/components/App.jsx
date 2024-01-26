@@ -15,8 +15,8 @@ const App = () => {
         <ContactForm />
         <Filter />
         <ContactList />
+        <ToastContainer />
       </AppContainer>
-      <ToastContainer />
     </>
   );
 };

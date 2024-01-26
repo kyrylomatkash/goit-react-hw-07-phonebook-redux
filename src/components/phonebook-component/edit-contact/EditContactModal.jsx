@@ -1,6 +1,6 @@
 // Імпорт бібліотек,стилів і логіки Redux
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -73,7 +73,6 @@ const EditContactModal = ({ contact, isOpen, onClose, onSave }) => {
           Save
         </Button>
       </DialogActions>
-      <ToastContainer autoClose={3000} position="bottom-right" />
     </Dialog>
   );
 };

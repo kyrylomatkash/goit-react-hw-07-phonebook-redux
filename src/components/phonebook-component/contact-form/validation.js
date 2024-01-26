@@ -4,20 +4,21 @@ export const validateName = name => {
     return 'Name is required.';
   }
 
-  if (!/^[a-zA-Zа-яА-Я\s]{1,30}$/.test(name)) {
-    return 'Name should contain only letters and be no longer than 30 characters.';
+  if (!/^[a-zA-Zа-яА-Я\s-]{1,30}$/.test(name)) {
+    return 'Check the name you entered. The name can contain only letters and special character: -';
   }
 
   return null;
 };
+
 // Валідація поля для номеру
 export const validateNumber = number => {
   if (!number.trim()) {
     return 'Number is required.';
   }
 
-  if (!/^\d{1,15}$/.test(number)) {
-    return 'Number should contain only digits and be no longer than 15 characters.';
+  if (!/^[\d()-]{1,15}$/.test(number)) {
+    return 'Check the name you entered.The name can contain only letters and special characters: () and -';
   }
 
   return null;
