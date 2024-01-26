@@ -38,9 +38,11 @@ const ContactForm = () => {
       toast.error(numberNotValid);
       return;
     }
-    // Відслідковування вже існуючого контакту у списку
+    // Відслідковування вже існуючого контакту за іменем або номером у списку
     const isContactExists = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+      contact =>
+        contact.name.toLowerCase() === name.toLowerCase() ||
+        contact.number === number
     );
 
     if (isContactExists) {

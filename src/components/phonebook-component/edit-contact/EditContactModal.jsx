@@ -9,14 +9,26 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { StyledForm, StyledTextField } from './editcontactmodalstyles';
+import { validateName, validateNumber } from '../contact-form/validation';
+
 // Основна функція компоненту
 const EditContactModal = ({ contact, isOpen, onClose, onSave }) => {
   const [name, setName] = useState(contact.name);
   const [number, setNumber] = useState(contact.number);
+
   // Збереження зміненого контакту
   const handleSave = () => {
-    if (!name.trim() || !number.trim()) {
-      toast.error('Please fill in all fields.');
+    // Валідація
+    const nameNotValid = validateName(name);
+    const numberNotValid = validateNumber(number);
+
+    if (nameNotValid) {
+      toast.error(nameNotValid);
+      return;
+    }
+
+    if (numberNotValid) {
+      toast.error(numberNotValid);
       return;
     }
 

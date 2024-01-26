@@ -68,9 +68,12 @@ const ContactList = () => {
   const handleSaveEdit = ({ id, name, number }) => {
     const isContactExists = contacts.some(
       contact =>
-        contact.name.toLowerCase() === name.toLowerCase() && contact.id !== id
+        (contact.name.toLowerCase() === name.toLowerCase() ||
+          contact.number === number) &&
+        contact.id !== id
     );
-    // Відслідковування вже існуючого контакту у списку
+
+    // Відслідковування вже існуючого контакту за іменем або номером у списку
     if (isContactExists) {
       setContactExistsModalOpen(true);
     } else {
