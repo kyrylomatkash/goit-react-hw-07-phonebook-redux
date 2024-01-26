@@ -1,6 +1,7 @@
 // Імпорт компонентів,бібліотек і Redux логіки
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts, selectIsLoading } from '../../../redux/selectors';
 import { addContact } from '../../../redux/contactsAsyncThunk';
 import ContactExistsModal from '../contact-list/ContactAlreadyExist';
 import { toast } from 'react-toastify';
@@ -17,8 +18,8 @@ import {
 // Основна функція компоненту
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  const isLoading = useSelector(state => state.contacts.isLoading);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');

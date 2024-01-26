@@ -2,6 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  selectContacts,
+  selectIsLoading,
+  selectFilter,
+} from '../../../redux/selectors';
+import {
   deleteContact,
   editContact as editContactAction,
   fetchContacts,
@@ -26,9 +31,9 @@ import {
 
 // Основна функція компоненту
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.filter.filter);
-  const isLoading = useSelector(state => state.contacts.isLoading);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   // Стейти модальних вікон
   const [editContact, setEditContact] = useState(null);
