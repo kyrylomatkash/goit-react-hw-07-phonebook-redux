@@ -1,4 +1,4 @@
-// Імпорт бібліотек,компонентів,логіки Redux
+// Імпорт компонентів,бібліотек,Redux логіки і селекторів
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {

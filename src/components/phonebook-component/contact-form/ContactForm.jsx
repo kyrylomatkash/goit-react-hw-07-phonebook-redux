@@ -1,4 +1,4 @@
-// Імпорт компонентів,бібліотек і Redux логіки
+// Імпорт компонентів,бібліотек,Redux логіки і селекторів
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectIsLoading } from '../../../redux/selectors';
